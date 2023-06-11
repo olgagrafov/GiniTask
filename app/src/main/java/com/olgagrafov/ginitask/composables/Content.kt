@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.olgagrafov.ginitask.model.Numbers
 import com.olgagrafov.ginitask.ui.theme.GiniTaskTheme
+import kotlin.math.abs
 
 object Content {
     @Composable
@@ -20,7 +21,8 @@ object Content {
             columns = GridCells.Adaptive(minSize = 128.dp)
         ) {
             items(myAPIList) { num ->
-                if(Numbers.NumbersList.contains(Math.abs(num))) {
+                if((num < 0 && Numbers.NumbersList.contains((num * (-1)))) ||
+                    (num > 0 && Numbers.NumbersList.contains((num * (-1)))) ) {
                     NumberCard.Item(number = num, color =  Color.Red)
                 }
                 else{
