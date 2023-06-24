@@ -1,10 +1,10 @@
 package com.olgagrafov.ginitask.service
 
 import com.olgagrafov.ginitask.model.NumberData
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
-interface MyRetrofitApiInterface {
+interface NumbersService {
     @GET("8wJzytQX")
-    fun getNumbers(): Call<NumberData>
+    suspend fun getNumbers(): Response<NumberData>
 }
