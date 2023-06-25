@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.olgagrafov.ginitask.model.NumberData
 import com.olgagrafov.ginitask.model.NumberItem
 
 object Content {
@@ -17,8 +18,7 @@ object Content {
         ) {
             items(numbers){
                 item: NumberItem ->
-                if((item.number < 0 && numbers.contains(NumberItem(item.number * (-1)))) ||
-                    (item.number > 0 &&  numbers.contains(NumberItem(item.number * (-1)))) ) {
+                if(NumberData.isContains(item.number, numbers)){
                     NumberCard.Item(number = item.number, color =  Color.Red)
                 }
                 else{
