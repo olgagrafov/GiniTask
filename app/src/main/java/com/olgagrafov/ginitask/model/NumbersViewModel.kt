@@ -15,16 +15,17 @@ class NumbersViewModel: ViewModel() {
     fun fetchNumbers() {
         viewModelScope.launch {
             try {
-                var retrievedNumbers = repository.getNumbers()
-                for(pp in retrievedNumbers){
-                    if(NumberData.isContains(pp.number, retrievedNumbers)) {
-                        pp.color = Color.Red
-                    }
-                    else {
-                        pp.color = Color.Green
+                var retrievedNumbers = repository.getNumbers().sortedBy { numberItem -> numberItem.number }
+                for(num in retrievedNumbers){
+                    if (num.number >= 0) break
+                    val tmp = num.number * (-1)
+                    if(retrievedNumbers.contains(NumberItem(tmp))) {
+                        num.setColor(Color.Red)
+                        val index = retrievedNumbers.indexOf(NumberItem(tmp))
+                        retrievedNumbers[index].setColor(Color.Red)
                     }
                 }
-                _numbers.value = retrievedNumbers.sortedBy { numberItem -> numberItem.number }
+                _numbers.value = retrievedNumbers
             } catch (e: Exception) {
                 throw Exception("Failed to retrieve numbers")
             }
